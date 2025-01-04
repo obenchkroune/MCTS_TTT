@@ -1,3 +1,3 @@
 default:
-	@c++ tic-tac-toe.cpp -Wall -Wextra -o game -lm -g3 -fsanitize=address
+	@c++ -Wall -Wextra -Werror main.cpp -o game
 	@./game

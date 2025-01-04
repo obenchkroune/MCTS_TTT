@@ -82,7 +82,7 @@ struct Game {
         string line;
 
         while (true) {
-            cout << "Enter your move (row and column): ";
+            cout << "Enter your move (row,column) (1..3, 1..3): ";
             getline(cin, line);
 
             size_t pos = line.find(',');
@@ -90,8 +90,8 @@ struct Game {
                 cout << RED "invalid move" RESET << endl;
                 continue;
             }
-            y = stoi(line.substr(0, pos));
-            x = stoi(line.substr(pos + 1));
+            y = stoi(line.substr(0, pos)) - 1;
+            x = stoi(line.substr(pos + 1)) - 1;
             if (!this->applyMove({x, y}, OPP)) {
                 cout << RED "invalid move" RESET << endl;
                 continue;
@@ -214,6 +214,7 @@ int main() {
     while (!game.isTerminal()) {
         game.printGrid();
         game.readUserInput();
+        if (game.isTerminal()) break;
         MCTS  mcts(game);
         Point move = mcts.getBestMove();
         game.applyMove(move, BOT);
